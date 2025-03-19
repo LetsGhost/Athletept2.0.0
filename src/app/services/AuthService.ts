@@ -54,8 +54,8 @@ class AuthService {
                     role: userRole.role
                 }
             }
-
-            const token = jwt.sign({userId: user._id, userRole: userRole.role}, process.env.TOKEN_SECRET!, {expiresIn: process.env.TOKEN_AGE });
+            const tokenAge = parseInt(process.env.TOKEN_AGE || '18000', 10); // Default to '1h' if TOKEN_AGE is not set
+            const token = jwt.sign({userId: user._id, userRole: userRole.role}, process.env.TOKEN_SECRET!, {expiresIn: tokenAge });
             const userId = user._id;
 
             return {
